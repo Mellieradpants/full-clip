@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signal Tool Starter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Signal Tool</h1>
+      <p class="subtitle">One input. Three constrained outputs: Meaning, Origin, Verification.</p>
+    </header>
+
+    <section class="panel input-panel">
+      <label for="sourceUrl">Optional source URL</label>
+      <input id="sourceUrl" type="url" placeholder="https://example.gov/article" />
+
+      <label for="inputText">Paste text</label>
+      <textarea id="inputText" rows="14" placeholder="Paste article text, policy text, bill section, claim, or document excerpt here..."></textarea>
+
+      <div class="controls">
+        <button id="analyzeBtn">Analyze</button>
+        <button id="loadSampleBtn" class="secondary">Load Sample</button>
+        <button id="clearBtn" class="secondary">Clear</button>
+      </div>
+    </section>
+
+    <section id="results" class="results hidden">
+      <section class="panel result-panel">
+        <div class="panel-header">
+          <h2>Meaning</h2>
+          <p>What the text is actually asserting or doing.</p>
+        </div>
+        <div id="meaningPanel"></div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-header">
+          <h2>Origin</h2>
+          <p>Where the information appears to come from.</p>
+        </div>
+        <div id="originPanel"></div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-header">
+          <h2>Verification</h2>
+          <p>Where supporting records should exist if the assertions are grounded.</p>
+        </div>
+        <div id="verificationPanel"></div>
+      </section>
+
+      <details class="panel debug-panel">
+        <summary>Debug</summary>
+        <pre id="debugPanel"></pre>
+      </details>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

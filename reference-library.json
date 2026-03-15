@@ -1,0 +1,388 @@
+{
+  "assertionTypes": [
+    {
+      "id": "scientific",
+      "label": "Scientific",
+      "definition": "Claims about research findings, medical outcomes, studies, experiments, or scientific mechanisms.",
+      "recordSystems": [
+        "PubMed",
+        "ClinicalTrials.gov",
+        "NIH",
+        "FDA",
+        "CDC"
+      ],
+      "expectedSignals": [
+        "study",
+        "trial",
+        "journal",
+        "doi",
+        "sample",
+        "research",
+        "medical",
+        "clinical"
+      ],
+      "weakSignals": [
+        "expert says",
+        "sources say",
+        "unsourced summary"
+      ]
+    },
+    {
+      "id": "policy_legal",
+      "label": "Policy / Legal",
+      "definition": "Claims about laws, regulations, legal obligations, agency rules, or public policy.",
+      "recordSystems": [
+        "Congress.gov",
+        "Federal Register",
+        "CourtListener",
+        "GovInfo",
+        "State Legislature Sites"
+      ],
+      "expectedSignals": [
+        "bill",
+        "act",
+        "law",
+        "rule",
+        "regulation",
+        "section",
+        "agency",
+        "court"
+      ],
+      "weakSignals": [
+        "legal commentary",
+        "blog summary",
+        "uncited claim"
+      ]
+    },
+    {
+      "id": "corporate_financial",
+      "label": "Corporate / Financial",
+      "definition": "Claims about companies, investor disclosures, earnings, corporate announcements, or executive actions.",
+      "recordSystems": [
+        "SEC EDGAR",
+        "Investor Relations Pages",
+        "Earnings Reports"
+      ],
+      "expectedSignals": [
+        "company",
+        "revenue",
+        "earnings",
+        "10-k",
+        "10-q",
+        "8-k",
+        "executive"
+      ],
+      "weakSignals": [
+        "rumor",
+        "anonymous source",
+        "marketing language"
+      ]
+    },
+    {
+      "id": "statistical",
+      "label": "Statistical",
+      "definition": "Claims using percentages, counts, rates, totals, or trends.",
+      "recordSystems": [
+        "U.S. Census Bureau",
+        "BLS",
+        "BEA",
+        "FRED",
+        "World Bank Data",
+        "OECD Data"
+      ],
+      "expectedSignals": [
+        "percent",
+        "%",
+        "rate",
+        "increase",
+        "decrease",
+        "total",
+        "count",
+        "average"
+      ],
+      "weakSignals": [
+        "floating number",
+        "no timeframe",
+        "no source"
+      ]
+    },
+    {
+      "id": "historical",
+      "label": "Historical",
+      "definition": "Claims about past events, archival records, chronology, or historical interpretation.",
+      "recordSystems": [
+        "National Archives",
+        "Library of Congress",
+        "University Archives"
+      ],
+      "expectedSignals": [
+        "archive",
+        "historical",
+        "in 19",
+        "in 20",
+        "document",
+        "speech",
+        "letter"
+      ],
+      "weakSignals": [
+        "retelling only",
+        "memory claim"
+      ]
+    },
+    {
+      "id": "government_program",
+      "label": "Government Program",
+      "definition": "Claims about benefits, services, agency programs, or administrative guidance.",
+      "recordSystems": [
+        "Agency Websites",
+        "GAO",
+        "OMB",
+        "OIG",
+        "Program Manuals"
+      ],
+      "expectedSignals": [
+        "application",
+        "benefit",
+        "program",
+        "eligibility",
+        "renewal",
+        "guidance",
+        "manual"
+      ],
+      "weakSignals": [
+        "secondhand advice",
+        "forum comment"
+      ]
+    },
+    {
+      "id": "geopolitical",
+      "label": "Geopolitical",
+      "definition": "Claims about foreign affairs, states, ministries, sanctions, treaties, or international bodies.",
+      "recordSystems": [
+        "UN",
+        "IMF",
+        "World Bank",
+        "WHO",
+        "Official Ministry Publications"
+      ],
+      "expectedSignals": [
+        "country",
+        "ministry",
+        "treaty",
+        "sanction",
+        "united nations",
+        "world health organization"
+      ],
+      "weakSignals": [
+        "war rumor",
+        "uncited thread"
+      ]
+    },
+    {
+      "id": "election_voting",
+      "label": "Election / Voting",
+      "definition": "Claims about voting procedures, ballots, election administration, or election results.",
+      "recordSystems": [
+        "State Secretary of State Sites",
+        "County Election Offices",
+        "Official Results Pages",
+        "FEC"
+      ],
+      "expectedSignals": [
+        "ballot",
+        "vote",
+        "election",
+        "secretary of state",
+        "county elections",
+        "results"
+      ],
+      "weakSignals": [
+        "campaign rumor",
+        "viral claim"
+      ]
+    },
+    {
+      "id": "infrastructure_energy",
+      "label": "Infrastructure / Energy",
+      "definition": "Claims about grids, utilities, transportation infrastructure, energy production, or reserves.",
+      "recordSystems": [
+        "EIA",
+        "FERC",
+        "NERC",
+        "ISO/RTO Operators",
+        "WECC",
+        "Utility Filings"
+      ],
+      "expectedSignals": [
+        "grid",
+        "utility",
+        "pipeline",
+        "bridge",
+        "broadband",
+        "energy",
+        "reserve",
+        "infrastructure"
+      ],
+      "weakSignals": [
+        "alarmist summary",
+        "no record cited"
+      ]
+    },
+    {
+      "id": "normative",
+      "label": "Normative",
+      "definition": "Claims about what should happen, what is right, fair, harmful, or justified.",
+      "recordSystems": [
+        "No definitive primary record system"
+      ],
+      "expectedSignals": [
+        "should",
+        "ought",
+        "must",
+        "unfair",
+        "harmful",
+        "ethical",
+        "better"
+      ],
+      "weakSignals": [
+        "pure opinion"
+      ]
+    },
+    {
+      "id": "predictive",
+      "label": "Predictive",
+      "definition": "Claims about future outcomes, forecasts, risks, or anticipated effects.",
+      "recordSystems": [
+        "Forecast Reports",
+        "Institutional Outlooks",
+        "Model Documentation",
+        "Track Record Comparisons"
+      ],
+      "expectedSignals": [
+        "will",
+        "likely",
+        "forecast",
+        "projected",
+        "expected",
+        "risk"
+      ],
+      "weakSignals": [
+        "guess",
+        "vibe",
+        "speculation only"
+      ]
+    },
+    {
+      "id": "authenticity",
+      "label": "Authenticity",
+      "definition": "Claims about whether media, screenshots, documents, or clips are genuine or altered.",
+      "recordSystems": [
+        "Original Source Pages",
+        "Internet Archive",
+        "Platform Metadata",
+        "Content Credentials"
+      ],
+      "expectedSignals": [
+        "screenshot",
+        "video",
+        "edited",
+        "metadata",
+        "original source",
+        "clip"
+      ],
+      "weakSignals": [
+        "reupload only",
+        "cropped context"
+      ]
+    },
+    {
+      "id": "identity",
+      "label": "Identity",
+      "definition": "Claims about who a person or organization is, affiliation, role, or authorship.",
+      "recordSystems": [
+        "Official Profiles",
+        "Institutional Staff Pages",
+        "Organization Directories"
+      ],
+      "expectedSignals": [
+        "is the",
+        "works at",
+        "author",
+        "professor",
+        "director",
+        "official profile"
+      ],
+      "weakSignals": [
+        "nickname only",
+        "hearsay identity"
+      ]
+    },
+    {
+      "id": "credential",
+      "label": "Credential",
+      "definition": "Claims about degrees, licenses, certifications, or qualifications.",
+      "recordSystems": [
+        "Licensing Boards",
+        "Institution Registries",
+        "Certification Directories"
+      ],
+      "expectedSignals": [
+        "licensed",
+        "certified",
+        "degree",
+        "board",
+        "credential",
+        "issued by"
+      ],
+      "weakSignals": [
+        "self-described expert"
+      ]
+    },
+    {
+      "id": "media",
+      "label": "Media",
+      "definition": "Claims about publication, authorship, coverage, editorial framing, or article provenance.",
+      "recordSystems": [
+        "Publisher Archives",
+        "Library of Congress",
+        "Broadcast Archives",
+        "News Archives"
+      ],
+      "expectedSignals": [
+        "published",
+        "headline",
+        "author",
+        "article",
+        "broadcast",
+        "coverage"
+      ],
+      "weakSignals": [
+        "reposted text",
+        "missing source"
+      ]
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "definition": "Claims that do not fit the current taxonomy cleanly.",
+      "recordSystems": [
+        "Needs Human Review"
+      ],
+      "expectedSignals": [],
+      "weakSignals": [
+        "unclear scope",
+        "mixed claim",
+        "insufficient context"
+      ]
+    }
+  ],
+  "statusLabels": [
+    "verification_path_available",
+    "source_path_incomplete",
+    "primary_record_not_yet_identified",
+    "interpretive_judgment_required",
+    "forecast_model_needed",
+    "secondary_source_only",
+    "needs_human_review"
+  ]
+}
