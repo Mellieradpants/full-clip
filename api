@@ -49,8 +49,7 @@ export async function POST(request) {
           {
             role: "system",
             content:
-              content:
-  "Translate the user's text into the requested target language. Translate generic labels, category names, and descriptive phrases fully. Preserve only true proper nouns, official product names, institution names, and database names when they should remain unchanged. Do not explain. Return only the translated text."
+              "Translate the user's text into the requested target language. Translate generic labels, category names, descriptive phrases, and full sentences fully. Preserve only true proper nouns, official product names, institution names, database names, and statute names when they should remain unchanged. Do not explain. Return only the translated text."
           },
           {
             role: "user",
@@ -75,8 +74,7 @@ export async function POST(request) {
       );
     }
 
-    const translated =
-      data?.choices?.[0]?.message?.content?.trim() || text;
+    const translated = data?.choices?.[0]?.message?.content?.trim() || text;
 
     return new Response(
       JSON.stringify({ translated }),
