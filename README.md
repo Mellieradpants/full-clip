@@ -1,4 +1,4 @@
-# Signal Tool
+Verification engine
 
 A human-readable prototype verification engine for complex information.
 
