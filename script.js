@@ -440,9 +440,9 @@ function renderVerification(items) {
       <p>${escapeHtml(item.text)}</p>
 
       <div class="badge-row">
-        <span class="badge type">${escapeHtml(item.typeLabel)}</span>
-        ${item.reviewFlags.map(f => `<span class="badge flag">${escapeHtml(f)}</span>`).join("")}
-      </div>
+  <span class="badge type">${escapeHtml(getTypeLabel(item.type, item.typeLabel))}</span>
+  ${item.reviewFlags.map(f => `<span class="badge flag">${escapeHtml(getFlagLabel(f))}</span>`).join("")}
+</div>
 
       <div class="small-label">${escapeHtml(t("expectedRecordSystemsLabel"))}</div>
       <ul class="list">${item.recordSystems.map(r => `<li>${escapeHtml(r)}</li>`).join("")}</ul>
