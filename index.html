@@ -413,8 +413,18 @@ document.getElementById("results").classList.remove("hidden");
 
 function loadSample(){
 
-document.getElementById("inputText").value=
-`Section 103 establishes a $108 billion federal bridge repair program beginning in 2026. According to the Department of Transportation, priority funding will go to structurally deficient bridges in interstate corridors. The bill also expands broadband deployment by $50 billion and directs grid modernization funding of $48 billion through the Department of Energy. Analysts say the measure will likely reduce long-term maintenance costs.`;
+document.getElementById("debugPanel").textContent =
+JSON.stringify({
+enginePipeline: [
+"origin_signals_extracted",
+"meaning_interpreted",
+"assertions_detected",
+"verification_routes_generated"
+],
+sentencesSplit: sentences.length,
+candidateAssertions: assertions.length,
+assertionsReturned: assertions.length
+}, null, 2);
 
 }
 
