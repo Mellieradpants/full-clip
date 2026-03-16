@@ -453,7 +453,37 @@ document.getElementById("debugPanel").textContent="";
 document.getElementById("analyzeBtn").addEventListener("click",analyze);
 document.getElementById("sampleBtn").addEventListener("click",loadSample);
 document.getElementById("clearBtn").addEventListener("click",clearAll);
+function applyLanguage(){
 
+const lang = document.getElementById("languageSelect").value;
+
+if(lang === "en") return;
+
+const dictionary = {
+es:{
+"Plain Meaning":"Significado Claro",
+"Detected Assertions":"Afirmaciones Detectadas",
+"Action Signals":"Señales de Acción",
+"Timeline Signals":"Señales de Tiempo",
+"Source Domain":"Dominio de Origen",
+"Publisher":"Publicador",
+"Timestamp Signal":"Señal de Tiempo",
+"Ownership / Provenance Context":"Contexto de Procedencia",
+"Assertion":"Afirmación",
+"Expected Record Systems":"Sistemas de Registro Esperados"
+}
+};
+
+const labels = document.querySelectorAll(".small-label");
+
+labels.forEach(label=>{
+const text = label.textContent.trim();
+if(dictionary[lang] && dictionary[lang][text]){
+label.textContent = dictionary[lang][text];
+}
+});
+
+}
 </script>
 
 </body>
