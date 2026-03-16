@@ -49,7 +49,8 @@ export async function POST(request) {
           {
             role: "system",
             content:
-              "Translate the user's text into the requested target language. Preserve meaning, tone, and structure as clearly as possible. Do not explain. Return only the translated text."
+              content:
+  "Translate the user's text into the requested target language. Translate generic labels, category names, and descriptive phrases fully. Preserve only true proper nouns, official product names, institution names, and database names when they should remain unchanged. Do not explain. Return only the translated text."
           },
           {
             role: "user",
