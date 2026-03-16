@@ -59,8 +59,7 @@ function generatePlainMeaning(text) {
 
   let summary = sentences.slice(0, 2).join(" ");
 
-  summary = summary.replace(/Section\s+\d+\s+/gi, "");
-  summary = summary.replace(/\bestablishes\b/gi, "creates");
+  summary = summary.replace(/Section\s+\d+\s+/gi, "");summary = summary.replace(/\bestablishes\b/gi, "sets up");
   summary = summary.replace(/\bdirects\b/gi, "puts");
   summary = summary.replace(/\bmodernization\b/gi, "upgrades");
   summary = summary.replace(/\bdeployment\b/gi, "expansion");
