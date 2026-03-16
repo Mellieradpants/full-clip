@@ -483,6 +483,44 @@ label.textContent = dictionary[lang][text];
 }
 });
 
+}document.getElementById("languageSelect").addEventListener("change", applyLanguage);
+
+function applyLanguage() {
+  const lang = document.getElementById("languageSelect").value;
+
+  if (lang === "en") return;
+
+  const dictionary = {
+    es: {
+      "Plain Meaning": "Significado Claro",
+      "Detected Assertions": "Afirmaciones Detectadas",
+      "Action Signals": "Señales de Acción",
+      "Timeline Signals": "Señales de Tiempo",
+      "Source Domain": "Dominio de Origen",
+      "Publisher": "Publicador",
+      "Timestamp Signal": "Señal de Tiempo",
+      "Ownership / Provenance Context": "Contexto de Procedencia",
+      "Assertion": "Afirmación",
+      "Expected Record Systems": "Sistemas de Registro Esperados"
+    },
+    ru: {
+      "Plain Meaning": "Простое значение",
+      "Detected Assertions": "Обнаруженные утверждения"
+    },
+    zh: {
+      "Plain Meaning": "简单含义",
+      "Detected Assertions": "检测到的断言"
+    }
+  };
+
+  const labels = document.querySelectorAll(".small-label");
+
+  labels.forEach(label => {
+    const text = label.textContent.trim();
+    if (dictionary[lang] && dictionary[lang][text]) {
+      label.textContent = dictionary[lang][text];
+    }
+  });
 }
 </script>
 
