@@ -448,7 +448,6 @@ function renderVerification(items) {
     <div class="card">
       <div class="small-label">${escapeHtml(t("assertionLabel"))}</div>
       <p>${escapeHtml(item.displayText || item.text)}</p>
-
       <div class="badge-row">
         <span class="badge type">${escapeHtml(item.displayTypeLabel || item.typeLabel)}</span>
         ${(item.displayFlags || item.reviewFlags).map(f => `<span class="badge flag">${escapeHtml(f)}</span>`).join("")}
