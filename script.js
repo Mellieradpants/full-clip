@@ -1,5 +1,116 @@
-
 let LIBRARY = null;
+let currentLanguage = "en";
+
+const uiTranslations = {
+  en: {
+    plainMeaningLabel: "Plain Meaning / Plain Meaning",
+    detectedAssertionsLabel: "Detected Assertions / Detected Assertions",
+    actionSignalsLabel: "Action Signals / Action Signals",
+    timelineSignalsLabel: "Timeline Signals / Timeline Signals",
+    sourceDomainLabel: "Source Domain / Source Domain",
+    publisherLabel: "Publisher / Publisher",
+    authorLabel: "Author / Author",
+    timestampSignalLabel: "Timestamp Signal / Timestamp Signal",
+    ownershipContextLabel: "Ownership / Provenance Context / Ownership / Provenance Context",
+    originSignalsLabel: "Origin Signals / Origin Signals",
+    assertionLabel: "Assertion / Assertion",
+    expectedRecordSystemsLabel: "Expected Record Systems / Expected Record Systems",
+    notesLabel: "Notes / Notes",
+
+    noneDetected: "None detected.",
+    noAssertionsDetected: "No assertions detected.",
+    noActionSignalsDetected: "No action signals detected.",
+    noTimelineSignalsDetected: "No timeline signals detected.",
+    noOriginSignalsDetected: "No origin signals detected.",
+    noVerificationItems: "No verification items to display.",
+    pasteTextFirst: "Paste some text first.",
+
+    noClearExplanation:
+      "This text makes a claim but there was not enough information to explain it clearly.",
+    bridgeSummary:
+      "The text says the federal government plans to spend money repairing bridges, expanding broadband internet, and upgrading the power grid. It also says these investments may reduce maintenance costs over time.",
+    textSaysPrefix: "The text says ",
+
+    otherLabel: "Other / Other",
+    needsHumanReview: "Needs Human Review / Needs Human Review",
+
+    governmentDomain: "Government domain / Government domain",
+    academicDomain: "Academic domain / Academic domain",
+    congressGov: "Congress.gov / Congress.gov",
+    officialGovernmentDomain: "Official government domain / Official government domain",
+    nonGovernmentDomain: "Non-government domain / Non-government domain",
+    noSourceUrl: "No source URL detected in text / No source URL detected in text",
+
+    normativeNote:
+      "This is a value-oriented statement. Treat record systems as framing references, not definitive proof paths.",
+    predictiveNote:
+      "This is a forecast-style statement. Model assumptions and prior forecast track records matter.",
+    incompleteSourceNote:
+      "This statement suggests a plausible verification path but does not yet identify a concrete primary record.",
+    identifiableRecordNote:
+      "This statement points toward an identifiable record system class."
+  },
+
+  es: {
+    plainMeaningLabel: "Plain Meaning / Significado claro",
+    detectedAssertionsLabel: "Detected Assertions / Afirmaciones detectadas",
+    actionSignalsLabel: "Action Signals / Señales de acción",
+    timelineSignalsLabel: "Timeline Signals / Señales temporales",
+    sourceDomainLabel: "Source Domain / Dominio fuente",
+    publisherLabel: "Publisher / Publicador",
+    authorLabel: "Author / Autor",
+    timestampSignalLabel: "Timestamp Signal / Señal temporal",
+    ownershipContextLabel: "Ownership / Provenance Context / Contexto de propiedad / procedencia",
+    originSignalsLabel: "Origin Signals / Señales de origen",
+    assertionLabel: "Assertion / Afirmación",
+    expectedRecordSystemsLabel: "Expected Record Systems / Sistemas de registro esperados",
+    notesLabel: "Notes / Notas",
+
+    noneDetected: "No detectado.",
+    noAssertionsDetected: "No se detectaron afirmaciones.",
+    noActionSignalsDetected: "No se detectaron señales de acción.",
+    noTimelineSignalsDetected: "No se detectaron señales temporales.",
+    noOriginSignalsDetected: "No se detectaron señales de origen.",
+    noVerificationItems: "No hay elementos de verificación para mostrar.",
+    pasteTextFirst: "Pega texto primero.",
+
+    noClearExplanation:
+      "Este texto hace una afirmación, pero no había suficiente información para explicarla con claridad.",
+    bridgeSummary:
+      "El texto dice que el gobierno federal planea gastar dinero en reparar puentes, ampliar el internet de banda ancha y modernizar la red eléctrica. También dice que estas inversiones pueden reducir los costos de mantenimiento con el tiempo.",
+    textSaysPrefix: "El texto dice ",
+
+    otherLabel: "Other / Otro",
+    needsHumanReview: "Needs Human Review / Revisión humana necesaria",
+
+    governmentDomain: "Government domain / Dominio gubernamental",
+    academicDomain: "Academic domain / Dominio académico",
+    congressGov: "Congress.gov / Congress.gov",
+    officialGovernmentDomain: "Official government domain / Dominio gubernamental oficial",
+    nonGovernmentDomain: "Non-government domain / Dominio no gubernamental",
+    noSourceUrl: "No source URL detected in text / No se detectó URL fuente en el texto",
+
+    normativeNote:
+      "Esta es una afirmación orientada a valores. Trata los sistemas de registro como referencias de encuadre, no como rutas definitivas de prueba.",
+    predictiveNote:
+      "Esta es una afirmación de tipo pronóstico. Importan los supuestos del modelo y el historial previo de aciertos.",
+    incompleteSourceNote:
+      "Esta afirmación sugiere una ruta de verificación plausible, pero todavía no identifica un registro primario concreto.",
+    identifiableRecordNote:
+      "Esta afirmación apunta a una clase de sistema de registro identificable."
+  }
+};
+
+function t(key) {
+  return uiTranslations[currentLanguage]?.[key] || uiTranslations.en[key] || key;
+}
+
+function syncLanguageFromUI() {
+  const langSelect = document.getElementById("languageSelect");
+  if (langSelect && langSelect.value) {
+    currentLanguage = langSelect.value;
+  }
+}
 
 async function loadLibrary() {
   if (LIBRARY) return LIBRARY;
@@ -39,7 +150,7 @@ function detectAssertions(sentences) {
 
 function generatePlainMeaning(text) {
   if (!text) {
-    return "This text makes a claim but there was not enough information to explain it clearly.";
+    return t("noClearExplanation");
   }
 
   const lower = text.toLowerCase();
@@ -49,7 +160,7 @@ function generatePlainMeaning(text) {
     lower.includes("broadband") &&
     lower.includes("grid")
   ) {
-    return "The text says the federal government plans to spend money repairing bridges, expanding broadband internet, and upgrading the power grid. It also says these investments may reduce maintenance costs over time.";
+    return t("bridgeSummary");
   }
 
   const sentences = text
@@ -59,14 +170,15 @@ function generatePlainMeaning(text) {
 
   let summary = sentences.slice(0, 2).join(" ");
 
-  summary = summary.replace(/Section\s+\d+\s+/gi, "");summary = summary.replace(/\bestablishes\b/gi, "sets up");
+  summary = summary.replace(/Section\s+\d+\s+/gi, "");
+  summary = summary.replace(/\bestablishes\b/gi, "sets up");
   summary = summary.replace(/\bdirects\b/gi, "puts");
   summary = summary.replace(/\bmodernization\b/gi, "upgrades");
   summary = summary.replace(/\bdeployment\b/gi, "expansion");
   summary = summary.replace(/\s+/g, " ").trim();
 
-  if (!summary.toLowerCase().startsWith("the text")) {
-    summary = "The text says " + summary.charAt(0).toLowerCase() + summary.slice(1);
+  if (!summary.toLowerCase().startsWith("the text") && !summary.toLowerCase().startsWith("el texto")) {
+    summary = t("textSaysPrefix") + summary.charAt(0).toLowerCase() + summary.slice(1);
   }
 
   return summary;
@@ -77,18 +189,18 @@ function scoreAssertionType(sentence, assertionTypes) {
   let best = {
     id: "other",
     score: 0,
-    label: "Other",
-    recordSystems: ["Needs Human Review"]
+    label: t("otherLabel"),
+    recordSystems: [t("needsHumanReview")]
   };
 
   for (const type of assertionTypes) {
     let score = 0;
 
-    for (const signal of (type.expectedSignals || [])) {
+    for (const signal of type.expectedSignals || []) {
       if (lower.includes(signal.toLowerCase())) score += 2;
     }
 
-    for (const weak of (type.weakSignals || [])) {
+    for (const weak of type.weakSignals || []) {
       if (lower.includes(weak.toLowerCase())) score -= 1;
     }
 
@@ -102,7 +214,7 @@ function scoreAssertionType(sentence, assertionTypes) {
         id: type.id,
         score,
         label: type.label,
-        recordSystems: type.recordSystems || ["Needs Human Review"]
+        recordSystems: type.recordSystems || [t("needsHumanReview")]
       };
     }
   }
@@ -174,9 +286,9 @@ function extractOrigin(rawText) {
       const url = new URL(urlMatch[0]);
       sourceDomain = url.hostname;
       originSignals.push(`source_url:${url.hostname}`);
-      if (url.hostname.includes(".gov")) publisher = "Government domain";
-      if (url.hostname.includes(".edu")) publisher = "Academic domain";
-      if (url.hostname.includes("congress.gov")) publisher = "Congress.gov";
+      if (url.hostname.includes(".gov")) publisher = t("governmentDomain");
+      if (url.hostname.includes(".edu")) publisher = t("academicDomain");
+      if (url.hostname.includes("congress.gov")) publisher = t("congressGov");
     } catch (_) {}
   }
 
@@ -204,12 +316,12 @@ function extractOrigin(rawText) {
     author,
     timestamp,
     ownershipContext: sourceDomain.includes(".gov")
-      ? "Official government domain"
+      ? t("officialGovernmentDomain")
       : sourceDomain.includes(".edu")
-      ? "Academic domain"
+      ? t("academicDomain")
       : sourceDomain
-      ? "Non-government domain"
-      : "No source URL detected in text",
+      ? t("nonGovernmentDomain")
+      : t("noSourceUrl"),
     originSignals
   };
 }
@@ -221,13 +333,13 @@ function runVerification(assertionTexts, library) {
 
     let notes = "";
     if (type.id === "normative") {
-      notes = "This is a value-oriented statement. Treat record systems as framing references, not definitive proof paths.";
+      notes = t("normativeNote");
     } else if (type.id === "predictive") {
-      notes = "This is a forecast-style statement. Model assumptions and prior forecast track records matter.";
+      notes = t("predictiveNote");
     } else if (flags.includes("source_path_incomplete")) {
-      notes = "This statement suggests a plausible verification path but does not yet identify a concrete primary record.";
+      notes = t("incompleteSourceNote");
     } else {
-      notes = "This statement points toward an identifiable record system class.";
+      notes = t("identifiableRecordNote");
     }
 
     return {
@@ -246,34 +358,34 @@ function renderMeaning(meaning) {
 
   const assertionsHtml = meaning.assertions.length
     ? `<ul class="list">${meaning.assertions.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>`
-    : `<p class="empty">No assertions detected.</p>`;
+    : `<p class="empty">${escapeHtml(t("noAssertionsDetected"))}</p>`;
 
   const actionsHtml = meaning.actions.length
     ? `<ul class="list">${meaning.actions.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>`
-    : `<p class="empty">No action signals detected.</p>`;
+    : `<p class="empty">${escapeHtml(t("noActionSignalsDetected"))}</p>`;
 
   const timelineHtml = meaning.timelineSignals.length
-    ? `<ul class="list">${meaning.timelineSignals.map(t => `<li>${escapeHtml(t)}</li>`).join("")}</ul>`
-    : `<p class="empty">No timeline signals detected.</p>`;
+    ? `<ul class="list">${meaning.timelineSignals.map(tl => `<li>${escapeHtml(tl)}</li>`).join("")}</ul>`
+    : `<p class="empty">${escapeHtml(t("noTimelineSignalsDetected"))}</p>`;
 
   panel.innerHTML = `
     <div class="card">
-      <div class="small-label">Plain Meaning</div>
+      <div class="small-label">${escapeHtml(t("plainMeaningLabel"))}</div>
       <p>${escapeHtml(meaning.plainMeaning)}</p>
     </div>
 
     <div class="card">
-      <div class="small-label">Detected Assertions</div>
+      <div class="small-label">${escapeHtml(t("detectedAssertionsLabel"))}</div>
       ${assertionsHtml}
     </div>
 
     <div class="card">
-      <div class="small-label">Action Signals</div>
+      <div class="small-label">${escapeHtml(t("actionSignalsLabel"))}</div>
       ${actionsHtml}
     </div>
 
     <div class="card">
-      <div class="small-label">Timeline Signals</div>
+      <div class="small-label">${escapeHtml(t("timelineSignalsLabel"))}</div>
       ${timelineHtml}
     </div>
   `;
@@ -283,20 +395,32 @@ function renderOrigin(origin) {
   const panel = document.getElementById("originPanel");
 
   panel.innerHTML = `
-    <div class="card"><div class="small-label">Source Domain</div><p>${escapeHtml(origin.sourceDomain || "None detected")}</p></div>
-    <div class="card"><div class="small-label">Publisher</div><p>${escapeHtml(origin.publisher || "None detected")}</p></div>
-    <div class="card"><div class="small-label">Author</div><p>${escapeHtml(origin.author || "None detected")}</p></div>
-    <div class="card"><div class="small-label">Timestamp Signal</div><p>${escapeHtml(origin.timestamp || "None detected")}</p></div>
     <div class="card">
-      <div class="small-label">Ownership / Provenance Context</div>
+      <div class="small-label">${escapeHtml(t("sourceDomainLabel"))}</div>
+      <p>${escapeHtml(origin.sourceDomain || t("noneDetected"))}</p>
+    </div>
+    <div class="card">
+      <div class="small-label">${escapeHtml(t("publisherLabel"))}</div>
+      <p>${escapeHtml(origin.publisher || t("noneDetected"))}</p>
+    </div>
+    <div class="card">
+      <div class="small-label">${escapeHtml(t("authorLabel"))}</div>
+      <p>${escapeHtml(origin.author || t("noneDetected"))}</p>
+    </div>
+    <div class="card">
+      <div class="small-label">${escapeHtml(t("timestampSignalLabel"))}</div>
+      <p>${escapeHtml(origin.timestamp || t("noneDetected"))}</p>
+    </div>
+    <div class="card">
+      <div class="small-label">${escapeHtml(t("ownershipContextLabel"))}</div>
       <p>${escapeHtml(origin.ownershipContext)}</p>
     </div>
     <div class="card">
-      <div class="small-label">Origin Signals</div>
+      <div class="small-label">${escapeHtml(t("originSignalsLabel"))}</div>
       ${
         origin.originSignals.length
           ? `<ul class="list">${origin.originSignals.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul>`
-          : `<p class="empty">No origin signals detected.</p>`
+          : `<p class="empty">${escapeHtml(t("noOriginSignalsDetected"))}</p>`
       }
     </div>
   `;
@@ -306,13 +430,13 @@ function renderVerification(items) {
   const panel = document.getElementById("verificationPanel");
 
   if (!items.length) {
-    panel.innerHTML = `<p class="empty">No verification items to display.</p>`;
+    panel.innerHTML = `<p class="empty">${escapeHtml(t("noVerificationItems"))}</p>`;
     return;
   }
 
   panel.innerHTML = items.map(item => `
     <div class="card">
-      <div class="small-label">Assertion</div>
+      <div class="small-label">${escapeHtml(t("assertionLabel"))}</div>
       <p>${escapeHtml(item.text)}</p>
 
       <div class="badge-row">
@@ -320,10 +444,10 @@ function renderVerification(items) {
         ${item.reviewFlags.map(f => `<span class="badge flag">${escapeHtml(f)}</span>`).join("")}
       </div>
 
-      <div class="small-label">Expected Record Systems</div>
+      <div class="small-label">${escapeHtml(t("expectedRecordSystemsLabel"))}</div>
       <ul class="list">${item.recordSystems.map(r => `<li>${escapeHtml(r)}</li>`).join("")}</ul>
 
-      <div class="small-label">Notes</div>
+      <div class="small-label">${escapeHtml(t("notesLabel"))}</div>
       <p>${escapeHtml(item.notes)}</p>
     </div>
   `).join("");
@@ -343,11 +467,13 @@ function escapeHtml(str) {
 }
 
 async function analyze() {
+  syncLanguageFromUI();
+
   const library = await loadLibrary();
   const input = normalizeInput(document.getElementById("inputText").value);
 
   if (!input.rawText) {
-    alert("Paste some text first.");
+    alert(t("pasteTextFirst"));
     return;
   }
 
@@ -388,3 +514,12 @@ function clearAll() {
 document.getElementById("analyzeBtn").addEventListener("click", analyze);
 document.getElementById("loadSampleBtn").addEventListener("click", loadSample);
 document.getElementById("clearBtn").addEventListener("click", clearAll);
+
+const languageSelect = document.getElementById("languageSelect");
+if (languageSelect) {
+  currentLanguage = languageSelect.value || "en";
+  languageSelect.addEventListener("change", () => {
+    currentLanguage = languageSelect.value || "en";
+  });
+}
+
